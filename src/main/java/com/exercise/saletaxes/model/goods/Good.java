@@ -11,15 +11,15 @@ public class Good implements TaxableItem{
     private String description;
     private GoodType category;
     private boolean imported;
-    private BigDecimal finalPrice;
+    private BigDecimal price;
 
     private TaxCalculator taxCalculator = TaxCalculator.getInstance();
 
-    Good(String description, GoodType category, boolean imported, BigDecimal finalPrice) {
+    Good(String description, GoodType category, boolean imported, BigDecimal price) {
         this.description = description;
         this.category = category;
         this.imported = imported;
-        this.finalPrice = finalPrice;
+        this.price = price;
     }
 
     public String getDescription() {
@@ -34,8 +34,12 @@ public class Good implements TaxableItem{
         return imported;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
     public BigDecimal getFinalPrice() {
-        return finalPrice;
+        return this.price.add(this.getTaxes());
     }
 
     public BigDecimal getTaxes() {
@@ -43,6 +47,6 @@ public class Good implements TaxableItem{
     }
 
     public String print() {
-        return description + ": " + finalPrice;
+        return description + ": " + getFinalPrice();
     }
 }

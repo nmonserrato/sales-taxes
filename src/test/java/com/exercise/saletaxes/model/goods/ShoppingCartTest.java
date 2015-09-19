@@ -23,7 +23,7 @@ public class ShoppingCartTest {
     @Test
     public void getFinalPrice_oneItem_getThatItem() {
         final ShoppingCart cart = new ShoppingCart(
-                aGood().ofType(FOOD).withFinalPrice("12.98").build()
+                aGood().ofType(FOOD).withPrice("12.98").build()
         );
         assertEquals(0, new BigDecimal("12.98").compareTo(cart.getFinalPrice()));
     }
@@ -31,11 +31,11 @@ public class ShoppingCartTest {
     @Test
     public void getFinalPrice_multipleItems_getItemsSum() {
         final ShoppingCart cart = new ShoppingCart(
-                aGood().ofType(FOOD).withFinalPrice("12.98").build(),
-                aGood().ofType(MEDICAL).withFinalPrice("5.99").build(),
-                aGood().ofType(OTHER).withFinalPrice("199.00").build()
+                aGood().ofType(FOOD).withPrice("12.98").build(),
+                aGood().ofType(MEDICAL).withPrice("5.99").build(),
+                aGood().ofType(OTHER).withPrice("199.00").build()
         );
-        assertEquals(0, new BigDecimal("217.97").compareTo(cart.getFinalPrice()));
+        assertEquals(0, new BigDecimal("237.87").compareTo(cart.getFinalPrice()));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ShoppingCartTest {
     @Test
     public void getTaxes_oneItem_getThatItemTaxes() {
         final ShoppingCart cart = new ShoppingCart(
-                aGood().ofType(OTHER).withFinalPrice("7.48").build()
+                aGood().ofType(OTHER).withPrice("7.48").build()
         );
         assertEquals(0, new BigDecimal("0.75").compareTo(cart.getTaxes()));
     }
@@ -55,10 +55,10 @@ public class ShoppingCartTest {
     @Test
     public void getTaxes_multipleItems_getItemsTaxesSumT() {
         final ShoppingCart cart = new ShoppingCart(
-                aGood().named("item1").ofType(BOOKS).withFinalPrice("10").build(),
-                aGood().named("item2").ofType(MEDICAL).imported(true).withFinalPrice("20").build(),
-                aGood().named("item3").ofType(OTHER).withFinalPrice("25.90").build(),
-                aGood().named("item4").ofType(OTHER).imported(true).withFinalPrice("30.50").build()
+                aGood().named("item1").ofType(BOOKS).withPrice("10").build(),
+                aGood().named("item2").ofType(MEDICAL).imported(true).withPrice("20").build(),
+                aGood().named("item3").ofType(OTHER).withPrice("25.90").build(),
+                aGood().named("item4").ofType(OTHER).imported(true).withPrice("30.50").build()
         );
         assertEquals(0, new BigDecimal("8.20").compareTo(cart.getTaxes()));
     }

@@ -12,7 +12,7 @@ public class GoodBuilder {
     private String description = "";
     private GoodType category;
     private boolean imported;
-    private BigDecimal finalPrice;
+    private BigDecimal price;
     private Logger logger = LoggerFactory.getLogger(GoodBuilder.class);
 
     public static GoodBuilder aGood() {
@@ -34,26 +34,26 @@ public class GoodBuilder {
         return this;
     }
 
-    public GoodBuilder withFinalPrice(String finalPrice) {
+    public GoodBuilder withPrice(String price) {
         try {
-            this.finalPrice = new BigDecimal(finalPrice);
+            this.price = new BigDecimal(price);
         } catch (NumberFormatException  nfe) {
-            logger.error("Input price [{}] is invalid, ignoring", finalPrice);
+            logger.error("Input price [{}] is invalid, ignoring", price);
         }
         return this;
     }
 
     public Good build() {
         /* check mandatory fields */
-        if (this.category == null || finalPrice == null) {
+        if (this.category == null || price == null) {
             throw new IllegalArgumentException("Category and price are mandatory");
         }
 
-        /* price must be greater than zero! */
-        if (finalPrice.signum() < 0) {
+        /* price must not be lower than zero! */
+        if (price.signum() < 0) {
             throw new IllegalArgumentException("Final price must be greater than zero!");
         }
 
-        return new Good(description, category, imported, finalPrice);
+        return new Good(description, category, imported, price);
     }
 }

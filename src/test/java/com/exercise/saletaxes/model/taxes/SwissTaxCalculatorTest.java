@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test class for SwissTaxCalculator
  */
-public class TaxCalculatorTest {
+public class SwissTaxCalculatorTest {
 
     private SwissTaxCalculator calculator;
 
@@ -25,49 +25,42 @@ public class TaxCalculatorTest {
 
     @Test
     public void calculateTaxes_priceZero_taxesZero() {
-        final Good freeItem = aGood().named("cannolo sample").ofType(FOOD).withFinalPrice("0.00").build();
+        final Good freeItem = aGood().named("cannolo sample").ofType(FOOD).withPrice("0.00").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(freeItem);
         assertEquals(0, taxesAmount.compareTo(ZERO));
     }
 
     @Test
-    public void calculateTaxes_lessThan5CentsItem_zeroTaxes() {
-        final Good bag = aGood().named("plastic bag").ofType(OTHER).withFinalPrice("0.05").build();
-        final BigDecimal taxesAmount = calculator.calculateTaxes(bag);
-        assertEquals(0, taxesAmount.compareTo(ZERO));
-    }
-
-    @Test
     public void calculateTaxes_reallyCheapItem_minimum5CentsTaxes() {
-        final Good candy = aGood().named("candy").imported(true).ofType(FOOD).withFinalPrice("0.10").build();
+        final Good candy = aGood().named("candy").imported(true).ofType(FOOD).withPrice("0.10").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(candy);
         assertEquals(0, taxesAmount.compareTo(new BigDecimal("0.05")));
     }
 
     @Test
     public void calculateTaxes_nonImportedItem_10PercentTaxes() {
-        final Good perfume = aGood().named("simple perfume").ofType(OTHER).withFinalPrice("14.99").build();
+        final Good perfume = aGood().named("simple perfume").ofType(OTHER).withPrice("14.99").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(perfume);
         assertEquals(0, taxesAmount.compareTo(new BigDecimal("1.50")));
     }
 
     @Test
     public void calculateTaxes_importedFood_5PercentTaxes() {
-        final Good perfume = aGood().named("imported chocolate").imported(true).ofType(FOOD).withFinalPrice("20").build();
+        final Good perfume = aGood().named("imported chocolate").imported(true).ofType(FOOD).withPrice("20").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(perfume);
         assertEquals(0, taxesAmount.compareTo(new BigDecimal("1.00")));
     }
 
     @Test
     public void calculateTaxes_nonImportedMedical_0PercentTaxes() {
-        final Good perfume = aGood().named("pain killers").imported(false).ofType(MEDICAL).withFinalPrice("13.50").build();
+        final Good perfume = aGood().named("pain killers").imported(false).ofType(MEDICAL).withPrice("13.50").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(perfume);
         assertEquals(0, taxesAmount.compareTo(ZERO));
     }
 
     @Test
     public void calculateTaxes_importedSmartphone_15PercentTaxes() {
-        final Good perfume = aGood().named("meizu mx5").imported(true).ofType(OTHER).withFinalPrice("200.0").build();
+        final Good perfume = aGood().named("meizu mx5").imported(true).ofType(OTHER).withPrice("200.0").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(perfume);
         assertEquals(0, taxesAmount.compareTo(new BigDecimal("30")));
     }

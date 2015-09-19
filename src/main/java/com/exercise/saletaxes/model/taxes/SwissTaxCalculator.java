@@ -22,16 +22,11 @@ public class SwissTaxCalculator extends TaxCalculator{
     }
 
     public BigDecimal calculateTaxes(Good good) {
-        final BigDecimal itemPrice = good.getFinalPrice();
+        final BigDecimal itemPrice = good.getPrice();
 
         /* check negative price, should never happen but this is a public API */
         if (itemPrice.signum() < 0) {
             throw new NumberFormatException("Item price is negative: " + itemPrice);
-        }
-
-        /* if price is lower than 5 cents, it's obviously not taxed */
-        if (itemPrice.compareTo(scale) <= 0) {
-            return BigDecimal.ZERO;
         }
 
         /* normal tax calculation */
