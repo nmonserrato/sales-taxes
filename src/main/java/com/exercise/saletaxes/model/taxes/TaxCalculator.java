@@ -10,8 +10,10 @@ import java.math.BigDecimal;
 public abstract class TaxCalculator {
     public abstract BigDecimal calculateTaxes(Good good);
 
+    private static final TaxCalculator INSTANCE = new SwissTaxCalculator();
+
     /* factory method per tax calculator */
     public static TaxCalculator getInstance() {
-        return new SwissTaxCalculator();
+        return INSTANCE;
     }
 }

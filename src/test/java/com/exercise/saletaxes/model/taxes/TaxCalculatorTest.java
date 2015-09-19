@@ -3,8 +3,6 @@ package com.exercise.saletaxes.model.taxes;
 import com.exercise.saletaxes.model.goods.Good;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 

@@ -18,6 +18,9 @@ public class SwissTaxCalculator extends TaxCalculator{
     private static final BigDecimal scale = new BigDecimal("0.05");
     private Logger logger = LoggerFactory.getLogger(SwissTaxCalculator.class);
 
+    SwissTaxCalculator() {
+    }
+
     public BigDecimal calculateTaxes(Good good) {
         final BigDecimal itemPrice = good.getFinalPrice();
 
@@ -34,7 +37,7 @@ public class SwissTaxCalculator extends TaxCalculator{
         /* normal tax calculation */
         int totalTaxesPercentage = good.isImported() ? IMPORT_TAXES_AMOUNT : 0;
         totalTaxesPercentage += good.getCategory().isSalesTaxable() ? SALES_TAXES_AMOUNT : 0;
-        logger.info("Total taxes percentage for {} is {}", good.getDescription(), totalTaxesPercentage);
+        logger.debug("Total taxes percentage for {} is {}", good.getDescription(), totalTaxesPercentage);
 
         return roundTo5Cents(itemPrice.multiply(valueOf(totalTaxesPercentage)).divide(valueOf(100), ROUND_HALF_UP));
     }
