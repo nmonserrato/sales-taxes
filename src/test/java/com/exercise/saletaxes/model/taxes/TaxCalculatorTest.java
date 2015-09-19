@@ -14,16 +14,15 @@ import static java.math.BigDecimal.ZERO;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class for TaxCalculator
+ * Test class for SwissTaxCalculator
  */
 public class TaxCalculatorTest {
 
-    private TaxCalculator calculator;
-    private Logger logger = LoggerFactory.getLogger(TaxCalculatorTest.class);
+    private SwissTaxCalculator calculator;
 
     @Before
     public void initCalculator() {
-        calculator = new TaxCalculator();
+        calculator = new SwissTaxCalculator();
     }
 
     @Test
@@ -63,7 +62,7 @@ public class TaxCalculatorTest {
 
     @Test
     public void calculateTaxes_nonImportedMedical_0PercentTaxes() {
-        final Good perfume = aGood().named("paink killers").imported(false).ofType(MEDICAL).withFinalPrice("13.50").build();
+        final Good perfume = aGood().named("pain killers").imported(false).ofType(MEDICAL).withFinalPrice("13.50").build();
         final BigDecimal taxesAmount = calculator.calculateTaxes(perfume);
         assertEquals(0, taxesAmount.compareTo(ZERO));
     }

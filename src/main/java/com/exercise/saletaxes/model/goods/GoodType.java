@@ -6,13 +6,13 @@ package com.exercise.saletaxes.model.goods;
 public enum GoodType {
     BOOKS(false), FOOD(false), MEDICAL(false), OTHER(true);
 
-    private boolean salexTaxable;
+    private boolean salesTaxable;
 
-    GoodType(boolean salexTaxable) {
-        this.salexTaxable = salexTaxable;
+    GoodType(boolean salesTaxable) {
+        this.salesTaxable = salesTaxable;
     }
 
-    public boolean isSalexTaxable() {
-        return salexTaxable;
+    public boolean isSalesTaxable() {
+        return salesTaxable;
     }
 }

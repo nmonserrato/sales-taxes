@@ -1,15 +1,19 @@
 package com.exercise.saletaxes.model.goods;
 
+import com.exercise.saletaxes.model.taxes.TaxCalculator;
+
 import java.math.BigDecimal;
 
 /**
  * Represents a single purchased item
  */
-public class Good {
+public class Good implements TaxableItem{
     private String description;
     private GoodType category;
     private boolean imported;
     private BigDecimal finalPrice;
+
+    private TaxCalculator taxCalculator = TaxCalculator.getInstance();
 
     Good(String description, GoodType category, boolean imported, BigDecimal finalPrice) {
         this.description = description;
@@ -32,5 +36,13 @@ public class Good {
 
     public BigDecimal getFinalPrice() {
         return finalPrice;
+    }
+
+    public BigDecimal getTaxes() {
+        return taxCalculator.calculateTaxes(this);
+    }
+
+    public String print() {
+        return description + ": " + finalPrice;
     }
 }
